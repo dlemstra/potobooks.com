@@ -303,5 +303,8 @@ $RECYCLE.BIN/
 *.lnk
 
 /logs
+logs
+/logs/*
+logs/*
 logs/Application/log
-/logs/Application/log
+/logs/Application/log 
