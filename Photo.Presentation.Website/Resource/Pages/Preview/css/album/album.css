@@ -1784,7 +1784,7 @@ footer {
 
 .sharedDesignsEmptyMessage__imageContainer {
     width: 150px;
-    height: 150px;
+    height: 150px !important;
     margin: -0.8em;
     /*background: no-repeat center url(../images/shared-empty-graphic.svg);*/
 }
