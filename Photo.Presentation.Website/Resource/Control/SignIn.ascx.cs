@@ -9,10 +9,9 @@ using Photo.Resources.Shared;
 using Photo.Utility.Validation;
 using Utility;
 
-namespace Resource.Control
-{
-    public partial class SignIn : UserControl
-    {
+namespace Resource.Control {
+    public partial class SignIn : UserControl {
+
         #region Private Members
 
         private UserInfo _user;
@@ -22,8 +21,7 @@ namespace Resource.Control
 
         #region Public Properties
 
-        public UserInfo User
-        {
+        public UserInfo User {
             get { return _user ?? (_user = SecurityHelper.GetCurrentUser()); }
         }
 
@@ -36,8 +34,7 @@ namespace Resource.Control
         /// method to validate login inputs
         /// </summary>
         /// <returns>bool</returns>
-        private bool ValidateInputs()
-        {
+        private bool ValidateInputs() {
             var isValid =
                 !(string.IsNullOrEmpty(txtEmailAddress.Value) ||
                   !ValidationHelper.IsValidEmailAddress(txtEmailAddress.Value.ToLower()));
@@ -53,8 +50,7 @@ namespace Resource.Control
 
         #region Events Handlers
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        protected void Page_Load(object sender, EventArgs e) {
             if (IsPostBack) return;
             if (User != null)
                 FormsAuthentication.RedirectFromLoginPage(User.UserName, true);
@@ -67,10 +63,8 @@ namespace Resource.Control
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnSignIn_Click(object sender, EventArgs e)
-        {
-            if (!CookieHelper.CheckIfCookiesSupported(Request))
-            {
+        protected void btnSignIn_Click(object sender, EventArgs e) {
+            if (!CookieHelper.CheckIfCookiesSupported(Request)) {
                 Response.Redirect(PageLink.CookiesNotAllowedPage);
                 return;
             }
@@ -78,39 +72,33 @@ namespace Resource.Control
             txtEmailAddress.Value = txtEmailAddress.Value.Trim().ToLower();
             txtCKPassword.Value = FormatHelper.CleanUpInvalidPasswordCharacters(txtCKPassword.Value);
 
-            if (!ValidateInputs())
-            {
+            if (!ValidateInputs()) {
                 divMessage.Visible = true;
                 var localResourceObject = GetLocalResourceObject("MessageRequiredField");
                 if (localResourceObject != null)
                     ltlMessage.Text = localResourceObject.ToString();
+                ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "showModal();", true);
                 return;
             }
 
-            if (UserController.Validate(txtEmailAddress.Value, txtCKPassword.Value))
-            {
+            if (UserController.Validate(txtEmailAddress.Value, txtCKPassword.Value)) {
                 if (
-                    SecurityHelper.CheckForPasswordChangeNotification(UserController.GetByUserName(txtEmailAddress.Value)))
-                {
+                    SecurityHelper.CheckForPasswordChangeNotification(UserController.GetByUserName(txtEmailAddress.Value))) {
                     FormsAuthentication.SetAuthCookie(txtEmailAddress.Value, chkRememberMe.Checked);
                     Utilities.SetCrossPageMessage(Shared.ChangePasswordNotificationMessage, MessageType.Information);
                     Response.Redirect(PageLink.ChangePasswordPageWithReturnURL.Replace("[ReturnURL]",
                         PageLink.DefaultPage));
-                }
-                else
-                {
+                } else {
                     FormsAuthentication.RedirectFromLoginPage(txtEmailAddress.Value, chkRememberMe.Checked);
                 }
-            }
-            else
-            {
+            } else {
                 divMessage.Visible = true;
                 var localResourceObject = GetLocalResourceObject("MessageLoginError");
                 if (localResourceObject != null)
                     ltlMessage.Text = localResourceObject.ToString();
+                ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "showModal();", true);
             }
         }
-
         #endregion
     }
 }

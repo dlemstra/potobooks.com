@@ -1,20 +1,150 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Business.master.cs" Inherits="Resource.Master.ResourceBusinessMaster" %>
 
+
+
 <!DOCTYPE html>
-<html class="no-js" lang="">
+<html lang="en">
 
 <head>
-    <title></title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>PhotoBooks</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css" />
+    <link href="../Resource/Pages/Preview/css/one-page-wonder.css" rel="stylesheet" />
 </head>
 
-<body class="business">
-    <form runat="server" id="form1">
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
-        </asp:ContentPlaceHolder>
-    </form>
+<body>
+    <header id="navigation">
+        <div class="navbar" role="banner">
+            <div class="container-fluid">
+                <nav class="collapse navbar-collapse navbar-left">
+                    <ul id="menu-footer-widget-menu-1" class="nav navbar-nav">
+                        <li id="menu-item-122" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-122"><a href="#">Home</a></li>
+                        <li id="menu-item-1765" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1765"><a href="#">Premium</a></li>
+                        <li id="menu-item-1768" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1768"><a href="#">Support</a></li>
+                        <li id="menu-item-124" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-124"><a href="#">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        <h1 class="site-title">PhotoBook</h1>
+                    </a>
+                </div>
+                <div class="pull-right">
+                    <ul class="list-inline">
+                        <li>
+                            <asp:HyperLink ID="userlogin" runat="server"
+                                NavigateUrl="~/Login.aspx">Login</asp:HyperLink>
+                        </li>
+                        <li>
+                            <asp:HyperLink ID="userregistration" runat="server"
+                                NavigateUrl="~/SignUp.aspx">Registration</asp:HyperLink>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+    </asp:ContentPlaceHolder>
+
+
+    <div id="tr-page" class="site">
+        <div id="content" class="site-content">
+            <div id="main-page-content" class="content-area">
+                <div class="container product-section">
+                    <div class="products tr-products">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <section class="error-404 not-found">
+                                    <h1>Home Page</h1>
+                                    <header class="page-header">
+                                        <h1 class="page-title">Home Page Content Goes Here</h1>
+                                    </header>
+
+                                    <div class="page-content">
+                                        <p>It looks like nothing was found at this location. Maybe try one of the links below or a search?</p>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="footer">
+            <div class="footer-top text-center">
+                <div class="container">
+                    <div class="footer-social social">
+                        <ul class="list-inline">
+                            <li><a href="#" target="_blank">
+                                <img src="http://themeregion.com/wp-content/themes/themeregion/assets/images/facebook.png" alt="Image" class="img-responsive"></a></li>
+                            <li><a href="https://twitter.com/themeregion" target="_blank">
+                                <img src="http://themeregion.com/wp-content/themes/themeregion/assets/images/twitter.png" alt="Image" class="img-responsive"></a></li>
+                            <li><a href="#" target="_blank">
+                                <img src="http://themeregion.com/wp-content/themes/themeregion/assets/images/behance.png" alt="Image" class="img-responsive"></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-menu">
+                        <ul id="menu-footer-widget-menu-2" class="list-inline">
+                            <li id="menu-item-1938" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1938"><a href="#">Contact Us</a></li>
+                            <li id="menu-item-238" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-238"><a href="#">Copyright</a></li>
+                            <li id="menu-item-241" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-241"><a href="#">Privacy Policy</a></li>
+                            <li id="menu-item-240" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-240"><a href="#">Terms &amp; Conditions</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="copyright">
+                                <p>Copyright 2017 © <a href="#">PhotoBooks.Com</a></p>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="payment-method pull-right">
+                                <ul class="list-inline">
+                                    <li>
+                                        <img src="http://themeregion.com/wp-content/themes/themeregion/assets/images/footer/1.jpg" alt="" class="img-responsive"></li>
+                                    <li>
+                                        <img src="http://themeregion.com/wp-content/themes/themeregion/assets/images/footer/2.jpg" alt="" class="img-responsive"></li>
+                                    <li>
+                                        <img src="http://themeregion.com/wp-content/themes/themeregion/assets/images/footer/3.jpg" alt="" class="img-responsive"></li>
+                                    <li>
+                                        <img src="http://themeregion.com/wp-content/themes/themeregion/assets/images/footer/4.jpg" alt="" class="img-responsive"></li>
+                                    <li>
+                                        <img src="http://themeregion.com/wp-content/themes/themeregion/assets/images/footer/5.jpg" alt="" class="img-responsive"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </body>
 
 </html>

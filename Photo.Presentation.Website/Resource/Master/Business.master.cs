@@ -13,6 +13,5 @@ namespace Resource.Master {
 
         public ResourceBusinessMaster() {
         }
-
     }
 }
