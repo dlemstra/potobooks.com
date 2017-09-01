@@ -123,7 +123,7 @@
         });
 
         $('#upload-album')
-            .click(function () {
+            .click(function() {
                 var model = new FormData();
                 model.append('Name', $("#albumtitle").val());
                 model.append('Description', $("#albumdescription").val());
@@ -131,19 +131,19 @@
                 model.append('SourceFile', $('#file_import')[0].files[0]);
 
                 $.ajax({
-                			url: "http://127.0.0.50/Ajax/UploadAlbum.ashx",
+                    url: "../Ajax/UploadAlbum.ashx",
                     type: 'POST',
                     dataType: 'json',
                     data: model,
                     processData: false,
                     contentType: false,
-                    success: function (result) {
+                    success: function(result) {
                         $("#myModal").modal("hide");
                         $("form#album-creation-form")[0].reset();
                         $.notify("Album created successfully", "success");
                         window.location = "Business/Default.aspx";
                     },
-                    error: function (err) {
+                    error: function(err) {
                         $("#myModal").modal("hide");
                         $("form")[0].reset();
                         $.notify("Album not created", "warn");
@@ -157,28 +157,27 @@
 
 
             var albumTemplate = '{{#albums}}<figure class="mediaCard gridItem">' +
-            '            <div class="gridItemInner">' +
-            '                <a href="#" class="thumbnailGridItem cardThumbnail" data-label="Edit this template" style="padding-top: 77.0909090909091%">' +
-            '                    <img src="http://127.0.0.50/uploads/data/ImageThumbnails/{{AlbumId}}_100x100.png" alt="image path">' +
-            '                </a>' +
-            '                <div class="infoGridItem">' +
-            '                    <h2 class="titleGridItem">' +
-            '                        <a href="#" class="cardTitle">{{AlbumName}}</a>' +
-            '                    </h2>' +
-            '                    <p class="categoryGridItem">' +
-            '                        <a href="#" class="cardCategory">Album</a>' +
-            '                    </p>' +
-            '                </div>' +
-            '            </div>' +
-            '        </figure>{{/albums}}';
-
+                '            <div class="gridItemInner">' +
+                '                <a href="#" class="thumbnailGridItem cardThumbnail" data-label="Edit this template" style="padding-top: 77.0909090909091%">' +
+                '                    <img src="../data/ImageThumbnails/{{AlbumId}}_100x100.png" alt="image path">' +
+                '                </a>' +
+                '                <div class="infoGridItem">' +
+                '                    <h2 class="titleGridItem">' +
+                '                        <a href="#" class="cardTitle">{{AlbumName}}</a>' +
+                '                    </h2>' +
+                '                    <p class="categoryGridItem">' +
+                '                        <a href="#" class="cardCategory">Album</a>' +
+                '                    </p>' +
+                '                </div>' +
+                '            </div>' +
+                '        </figure>{{/albums}}';
 
 
             $.ajax({
-            				url: "http://127.0.0.50/Ajax/GetAlbums.ashx",
+                url: "../Ajax/GetAlbums.ashx",
                 type: 'Get',
                 dataType: 'json',
-                success: function (data) {
+                success: function(data) {
                     if (data != null && data.length > 0) {
                         var albums = { 'albums': data };
                         var htm = Mustache.render(albumTemplate, albums);
@@ -186,7 +185,7 @@
                         setTimeout(responsiveManager.makeResponsiveLayout, 200);
                     }
                 },
-                error: function () {
+                error: function() {
                     setTimeout(responsiveManager.makeResponsiveLayout, 200);
                 }
             });
