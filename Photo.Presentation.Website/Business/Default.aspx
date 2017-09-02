@@ -105,7 +105,7 @@
 <figure class="mediaCard gridItem">
 <div class="gridItemInner">
 <a href="#" class="thumbnailGridItem cardThumbnail" data-label="Edit this template" style="padding-top: 77.0909090909091%">
-<img src="../data/ImageThumbnails/{{AlbumId}}_100x100.png" alt="image path">
+<img src="../data/ImageThumbnails/{{AlbumId}}_250x250.png" alt="image path">
 </a>
 <div class="infoGridItem">
 <h2 class="titleGridItem">

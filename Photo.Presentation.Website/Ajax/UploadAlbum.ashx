@@ -10,6 +10,8 @@ using Photo.Business.Entities.Album;
 using Photo.Business.Entities.Model;
 using Photo.Business.Entities.Security;
 using Photo.Business.Utilities.ImagePreview;
+using Photo.Business.Utilities.Storage;
+using Photo.Utility.LogHelper;
 
 public class UploadAlbum : IHttpHandler {
 
@@ -26,6 +28,7 @@ public class UploadAlbum : IHttpHandler {
 
     public void ProcessRequest(HttpContext context) {
 
+        LogHelper.Log(Logger.Application, LogLevel.Info, "UploadAlbum - Entry");
 
         // get variables first
         var nvc = HttpContext.Current.Request.Form;
@@ -35,35 +38,37 @@ public class UploadAlbum : IHttpHandler {
             var pi = request.GetType().GetProperty(kvp, BindingFlags.Public | BindingFlags.Instance);
             int i;
             if (int.TryParse(nvc[kvp], out i)) {
-                pi.SetValue(request, i, null);
+                if (pi != null) pi.SetValue(request, i, null);
             } else {
-                pi.SetValue(request, nvc[kvp], null);
+                if (pi != null) pi.SetValue(request, nvc[kvp], null);
             }
-
         }
         request.SourceFile = HttpContext.Current.Request.Files["SourceFile"];
+        var repoPath = RepositoryHelper.UploadImagePath();
+        if (request.SourceFile != null)
+            repoPath += repoPath + request.SourceFile.FileName;
+        var album = new AlbumInfo {
+            AlbumDescription = request.Description,
+            AlbumName = request.Name,
+            AlbumType = request.AlbumType,
+            AlbumImagePath = repoPath,
+            StatusId = 1,
+            IsActive = true,
+            UploadedBy = User.ID,
+        };
+        var albumId = AlbumController.Save(album);
+        LogHelper.Log(Logger.Application, LogLevel.Info, "UploadAlbum - album created");
         if (request.SourceFile != null) {
-            var album = new AlbumInfo {
-                AlbumDescription = request.Description,
-                AlbumName = request.Name,
-                AlbumType = request.AlbumType,
-                AlbumImagePath = request.SourceFile.FileName,
-                StatusId = 1,
-                IsActive = true,
-                UploadedBy = User.ID,
-            };
-
-            var albumId = AlbumController.Save(album);
-
-            var baseBath = ConfigurationManager.AppSettings["DocumentStorageLocation"];
-            var filePath = baseBath + @"AlbumTemplates\" + albumId + "_" + request.SourceFile.FileName.Trim();
-            request.SourceFile.SaveAs(filePath);
+            request.SourceFile.SaveAs(repoPath);
             //Generate the thumnail
-            ImageThumbnailGenerator.ResizeToFixedSize(filePath, albumId);
+            ImageThumbnailGenerator.ResizeToFixedSize(repoPath, albumId);
+            LogHelper.Log(Logger.Application, LogLevel.Info, "UploadAlbum - Cover image got generated");
+
         }
 
-       context.Response.ContentType = "text/json";
+        context.Response.ContentType = "text/json";
         context.Response.Write("Album got created Successfully!");
+        LogHelper.Log(Logger.Application, LogLevel.Info, "UploadAlbum - End");
     }
 
     public bool IsReusable {

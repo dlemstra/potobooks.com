@@ -6,6 +6,7 @@ using Photo.Business.Entities.Security;
 using Photo.Business.Utilities.Formatting;
 using Photo.Resources.PageLink;
 using Photo.Resources.Shared;
+using Photo.Utility.LogHelper;
 using Photo.Utility.Validation;
 using Utility;
 
@@ -64,7 +65,11 @@ namespace Resource.Control {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnSignIn_Click(object sender, EventArgs e) {
+
+            LogHelper.Log(Logger.Application, LogLevel.Info, "SignIn - User Login entry");
+
             if (!CookieHelper.CheckIfCookiesSupported(Request)) {
+                LogHelper.Log(Logger.Application, LogLevel.Info, "SignIn - browser cookie supported");
                 Response.Redirect(PageLink.CookiesNotAllowedPage);
                 return;
             }
@@ -75,8 +80,10 @@ namespace Resource.Control {
             if (!ValidateInputs()) {
                 divMessage.Visible = true;
                 var localResourceObject = GetLocalResourceObject("MessageRequiredField");
-                if (localResourceObject != null)
+                if (localResourceObject != null) {
                     ltlMessage.Text = localResourceObject.ToString();
+                    LogHelper.Log(Logger.Application, LogLevel.Warn, "SignIn - " + localResourceObject + "");
+                }
                 ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "showModal();", true);
                 return;
             }
@@ -90,14 +97,19 @@ namespace Resource.Control {
                         PageLink.DefaultPage));
                 } else {
                     FormsAuthentication.RedirectFromLoginPage(txtEmailAddress.Value, chkRememberMe.Checked);
+                    LogHelper.Log(Logger.Application, LogLevel.Info, "SignIn - user validation successful");
                 }
             } else {
                 divMessage.Visible = true;
                 var localResourceObject = GetLocalResourceObject("MessageLoginError");
-                if (localResourceObject != null)
+                if (localResourceObject != null) {
                     ltlMessage.Text = localResourceObject.ToString();
+                    LogHelper.Log(Logger.Application, LogLevel.Error, "SignIn - " + localResourceObject + "");
+                }
                 ScriptManager.RegisterStartupScript(this, GetType(), "Pop", "showModal();", true);
             }
+
+            LogHelper.Log(Logger.Application, LogLevel.Info, "SignIn - User Login ended");
         }
         #endregion
     }
