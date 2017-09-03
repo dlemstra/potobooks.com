@@ -48,8 +48,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <div class="sharedDesignsEmptyMessage">
-                                            <div class="sharedDesignsEmptyMessage__inner">
-                                                <%--<img src="../Resource/Images/shared-empty-graphic.svg" class="sharedDesignsEmptyMessage__imageContainer selected-template" />--%>
+                                            <div class="sharedDesignsEmptyMessage__inner" style="margin-top: 10px;">
                                                 <!-- slider -->
                                                 <div class="row">
                                                     <div class="col-md-9" id="slider">
