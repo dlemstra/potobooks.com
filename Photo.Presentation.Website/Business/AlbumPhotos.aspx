@@ -94,7 +94,7 @@
 {{#albums}}
 <figure class="mediaCard gridItem">
 <div class="gridItemInner">
-<a href="#" class="thumbnailGridItem cardThumbnail" data-label="Edit this template" style="padding-top: 77.0909090909091%">
+<a href="#" class="thumbnailGridItem cardThumbnail" data-label="Edit this photo" style="padding-top: 77.0909090909091%">
 <img src="../data/ImageThumbnails/_photo_{{AlbumImageID}}_250x250.png" alt="image path">
 </a>
         <asp:button data-row-id="{{AlbumImageID}}" OnClientClick="return false;" class="button buttonSmall designCardMenuTrigger"><i style="color:black;cursor:pointer;margin-left: 8px;" class="icon-reorder"></i></asp:button>
