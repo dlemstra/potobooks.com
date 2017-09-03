@@ -49,7 +49,47 @@
                                     <div class="panel-body">
                                         <div class="sharedDesignsEmptyMessage">
                                             <div class="sharedDesignsEmptyMessage__inner">
-                                                <img src="../Resource/Images/shared-empty-graphic.svg" class="sharedDesignsEmptyMessage__imageContainer selected-template" />
+                                                <%--<img src="../Resource/Images/shared-empty-graphic.svg" class="sharedDesignsEmptyMessage__imageContainer selected-template" />--%>
+                                                <!-- slider -->
+                                                <div class="row">
+                                                    <div class="col-md-9" id="slider">
+                                                        <!-- Top part of the slider -->
+                                                        <div class="row">
+                                                            <div class="col-md-2" id="carousel-bounding-box">
+                                                                <div id="myCarousel" class="carousel slide">
+                                                                    <!-- Carousel items -->
+                                                                    <div class="carousel-inner">
+                                                                        <div class="active item" data-slide-number="0">
+                                                                            <img class="img-rounded img-responsive" src="../Resource/Pages/Preview/images/slider1.jpg">
+                                                                        </div>
+                                                                        <div class="item" data-slide-number="1">
+                                                                            <img class="img-rounded img-responsive" src="../Resource/Pages/Preview/images/slider2.jpg">
+                                                                        </div>
+                                                                        <div class="item" data-slide-number="2">
+                                                                            <img class="img-rounded img-responsive" src="../Resource/Pages/Preview/images/slider3.jpg">
+                                                                        </div>
+                                                                        <div class="item" data-slide-number="3">
+                                                                            <img class="img-rounded img-responsive" src="../Resource/Pages/Preview/images/slider4.jpg">
+                                                                        </div>
+                                                                        <div class="item" data-slide-number="4">
+                                                                            <img class="img-rounded img-responsive" src="../Resource/Pages/Preview/images/slider5.jpg">
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--/carousel-inner-->
+                                                                </div>
+                                                                <!--/carousel-->
+                                                                <ul class="carousel-controls-mini list-inline text-center">
+                                                                    <li><a href="#myCarousel" data-slide="prev">‹</a></li>
+                                                                    <li><a href="#myCarousel" data-slide="next">›</a></li>
+                                                                </ul>
+                                                                <!--/carousel-controls-->
+                                                            </div>
+                                                            <!--/col-->
+                                                        </div>
+                                                        <!--/col-->
+                                                    </div>
+                                                    <!--/row slider-->
+                                                </div>
                                             </div>
                                         </div>
                                         <br />
@@ -57,7 +97,7 @@
                                             <form id="album-creation-form" role="form" autocomplete="off" class="form" method="post">
                                                 <div class="form-group">
                                                     <div class="input-group">
-                                                        <label for="file_import">Select Preview Image :</label>
+                                                        <label for="file_import">Select Album Cover :</label>
                                                         <input type="file" style="width: 95%;" accept="image/gif, image/jpg, image/jpeg, image/png" class="form-control" name="file_import" id="file_import" />
                                                         <div class="clearfix"></div>
                                                     </div>
@@ -72,13 +112,23 @@
                                                             id="albumdescription" placeholder="Album description" name="albumdescription" class="form-control">
                                                     </div>
                                                     <div class="input-group">
-                                                        <label for="softcover" class="checkboxlabel">Soft Cover Book</label>
-                                                        <input type="radio" class="checkbox checkbboxinput" id="softcover" name="covertype" value="1">
+                                                        <label for="softcover" class="checkboxlabel">
+                                                            Softcover from $9.99
+                                                           <p style="color: #414141; opacity: 0.6;">
+                                                               7-inch square, 20 pages 
+                                                           </p>
+                                                        </label>
+                                                        <input type="radio" class="checkbox checkbboxinput" style="margin-top: -75px;" id="softcover" name="covertype" value="1">
                                                         <div class="clear"></div>
                                                     </div>
                                                     <div class="input-group">
-                                                        <label for="hardcover" class="checkboxlabel">Hard Cover Book</label>
-                                                        <input type="radio" class="checkbox checkbboxinput" id="hardcover" name="covertype" value="2">
+                                                        <label for="hardcover" class="checkboxlabel">
+                                                            Hard Cover Book
+                                                              <p style="color: #414141; opacity: 0.6;">
+                                                                  9-inch square, 20 pages 
+                                                              </p>
+                                                        </label>
+                                                        <input type="radio" class="checkbox checkbboxinput" id="hardcover" style="margin-top: -75px;" name="covertype" value="2">
                                                         <div class="clear"></div>
                                                     </div>
                                                 </div>
@@ -107,6 +157,7 @@
 <a href="#" class="thumbnailGridItem cardThumbnail" data-label="Edit this template" style="padding-top: 77.0909090909091%">
 <img src="../data/ImageThumbnails/{{AlbumId}}_250x250.png" alt="image path">
 </a>
+        <asp:button data-row-id="{{AlbumId}}" OnClientClick="return false;" class="button buttonSmall designCardMenuTrigger"><i style="color:black;cursor:pointer;margin-left: 8px;" class="icon-reorder"></i></asp:button>
 <div class="infoGridItem">
 <h2 class="titleGridItem">
 <a href="#" class="cardTitle">{{AlbumName}}</a>
@@ -120,81 +171,5 @@
 {{/albums}}
        
     </script>
-
-    <script>
-
-        $("#file_import").change(function () {
-            readURL(this);
-        });
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('.selected-template').attr('src', e.target.result);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $(".addAlbum").click(function () {
-            $("#myModal").modal("show");
-        });
-
-        $('#upload-album')
-            .click(function () {
-                var model = new FormData();
-                model.append('Name', $("#albumtitle").val());
-                model.append('Description', $("#albumdescription").val());
-                model.append('AlbumType', parseInt($('input[name=covertype]:checked').val(), 9));
-                model.append('SourceFile', $('#file_import')[0].files[0]);
-
-                $.ajax({
-                    url: "../Ajax/UploadAlbum.ashx",
-                    type: 'POST',
-                    dataType: 'json',
-                    data: model,
-                    processData: false,
-                    contentType: false,
-                    success: function (result) {
-                        $("#myModal").modal("hide");
-                        $("form#album-creation-form")[0].reset();
-                        $.notify("Album created successfully", "success");
-                        window.location = "Business/Default.aspx";
-                    },
-                    error: function (err) {
-                        $("#myModal").modal("hide");
-                        $("form")[0].reset();
-                        $.notify("Album not created", "warn");
-                        window.location = "Default.aspx";
-                    }
-                });
-            });
-
-        function getAlbums() {
-            var self = this;
-            var albumTemplate = $("#tmpl-activity").html();
-            $.ajax({
-                url: "../Ajax/GetAlbums.ashx",
-                type: 'Get',
-                dataType: 'json',
-                success: function (data) {
-                    if (data != null && data.length > 0) {
-                        var albums = { 'albums': data };
-                        var htm = Mustache.render(albumTemplate, albums);
-                        $('.dynamic-grid').html(htm);
-                        setTimeout(responsiveManager.makeResponsiveLayout, 200);
-                    }
-                },
-                error: function () {
-                    setTimeout(responsiveManager.makeResponsiveLayout, 200);
-                }
-            });
-        }
-
-        getAlbums();
-
-    </script>
+    <script src="../Resource/Pages/Preview/js/album/album.page.js"></script>
 </asp:Content>

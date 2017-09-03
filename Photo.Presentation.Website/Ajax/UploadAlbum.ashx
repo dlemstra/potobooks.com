@@ -46,7 +46,7 @@ public class UploadAlbum : IHttpHandler {
         request.SourceFile = HttpContext.Current.Request.Files["SourceFile"];
         var repoPath = RepositoryHelper.UploadImagePath();
         if (request.SourceFile != null)
-            repoPath += repoPath + request.SourceFile.FileName;
+            repoPath += request.SourceFile.FileName;
         var album = new AlbumInfo {
             AlbumDescription = request.Description,
             AlbumName = request.Name,
