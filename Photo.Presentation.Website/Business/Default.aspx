@@ -154,12 +154,12 @@
 <figure class="mediaCard gridItem">
 <div class="gridItemInner">
 <a href="#" class="thumbnailGridItem cardThumbnail" data-label="Edit this template" style="padding-top: 77.0909090909091%">
-<img src="../data/ImageThumbnails/{{AlbumId}}_250x250.png" alt="image path">
+<img src="../data/ImageThumbnails/_album_{{AlbumId}}_250x250.png" alt="image path">
 </a>
         <asp:button data-row-id="{{AlbumId}}" OnClientClick="return false;" class="button buttonSmall designCardMenuTrigger"><i style="color:black;cursor:pointer;margin-left: 8px;" class="icon-reorder"></i></asp:button>
 <div class="infoGridItem">
 <h2 class="titleGridItem">
-<a href="#" class="cardTitle">{{AlbumName}}</a>
+<a href="AlbumPhotos.aspx?albumId={{AlbumId}}" class="cardTitle">{{AlbumName}}</a>
 </h2>
 <p class="categoryGridItem">
 <a href="#" class="cardCategory">Album</a>
@@ -170,5 +170,5 @@
 {{/albums}}
        
     </script>
-    <script src="../Resource/Pages/Preview/js/album/album.page.js"></script>
+    <script src="../Resource/Javascript/Pages/album/album.page.js"></script>
 </asp:Content>

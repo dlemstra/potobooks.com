@@ -10,7 +10,7 @@ using Photo.Business.Utilities.Storage;
 
 namespace Photo.Business.Utilities.ImagePreview {
     public class ImageThumbnailGenerator {
-        public static void ResizeToFixedSize(string imagePath, long fileId, int width = 250,
+        public static void ResizeToFixedSize(ThumbnailTypeType type, string imagePath, long fileId, int width = 250,
             int height = 250) {
 
             // Read from file
@@ -20,7 +20,7 @@ namespace Photo.Business.Utilities.ImagePreview {
                 // Normally an image will be resized to fit inside the specified size.
                 if (IsResizeNeedsToApply(imagePath, width, height))
                     image.Resize(size);
-                var baseBath = RepositoryHelper.GetThumbnailFilePath(DocumentType.WorkFileUpload);
+                var baseBath = RepositoryHelper.GetThumbnailFilePath(DocumentType.WorkFileUpload, type);
                 baseBath += fileId + "_" + width + "x" + height + ".png";
                 // Save the result
                 image.Write(baseBath);

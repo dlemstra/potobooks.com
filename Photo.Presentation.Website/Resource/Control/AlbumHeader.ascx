@@ -6,10 +6,10 @@
             <nav class="navbar" role="navigation">
                 <ul class="navigationMenu__items">
                     <li class="navigationMenuDropdown navigationMenu__item">
-                        <a class="navigationMenuDropdown__label navigationMenu__label" href="#">Menu 1</a>
+                        <a class="navigationMenuDropdown__label navigationMenu__label" href="#">Albums</a>
                         <div class="navigationMenuDropdown__content">
                             <ul class="navigationMenuDropdown__scrollInner">
-                                <li class="navigationMenuDropdown__item"><a class="navigationMenuDropdown__button" href="#">Sub Menu 1</a></li>
+                                <li class="navigationMenuDropdown__item"><a class="navigationMenuDropdown__button" href="../../Business/Default.aspx">My Albums</a></li>
                                 <li class="navigationMenuDropdown__item"><a class="navigationMenuDropdown__button" href="#">Sub Menu 2</a></li>
                             </ul>
                         </div>

@@ -61,6 +61,7 @@
     <Compile Include="DataProvider\DataProviderCollection.cs" />
     <Compile Include="DataProvider\DataProviderConfiguration.cs" />
     <Compile Include="DataProvider\DataProviderManager.cs" />
+    <Compile Include="Entities\Album\AlbumPhotosController.cs" />
     <Compile Include="Entities\Album\AlbumController.cs" />
     <Compile Include="Entities\Model\AlbumImageInfo.cs" />
     <Compile Include="Entities\Model\Albumnfo.cs" />

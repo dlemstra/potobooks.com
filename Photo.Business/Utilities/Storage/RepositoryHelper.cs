@@ -104,10 +104,11 @@ namespace Photo.Business.Utilities.Storage {
         /// return thumbnail preview path
         /// </summary>
         /// <param name="docType"></param>
+        /// <param name="thumbnailType"></param>
         /// <returns></returns>
-        public static string GetThumbnailFilePath(DocumentType docType)
-        {
-            return ConfigurationManager.AppSettings["DocumentStorageLocation"] + @"\ImageThumbnails\";
+        public static string GetThumbnailFilePath(DocumentType docType, ThumbnailTypeType thumbnailType) {
+            var imageType = thumbnailType == ThumbnailTypeType.Album ? "_album_" : "_photo_";
+            return ConfigurationManager.AppSettings["DocumentStorageLocation"] + @"\ImageThumbnails\" + imageType;
         }
 
         #endregion
