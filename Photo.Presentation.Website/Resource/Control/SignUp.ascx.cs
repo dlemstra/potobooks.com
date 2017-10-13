@@ -10,6 +10,7 @@ using Photo.Business.Entities.Security;
 using Photo.Business.Utilities.Formatting;
 using Photo.Resources.PageLink;
 using Photo.Resources.Shared;
+using Photo.Utility.LogHelper;
 using Photo.Utility.Validation;
 using Utility;
 
@@ -78,6 +79,8 @@ namespace Resource.Control {
         /// <param name="e"></param>
         protected void btnSignUp_Click(object sender, EventArgs e) {
 
+            LogHelper.Log(Logger.Application, LogLevel.Info, "SignUp - Entry");
+
             txtUserName.Value = txtUserName.Value.Trim().ToLower();
             txtCKPassword.Value = FormatHelper.CleanUpInvalidPasswordCharacters(txtCKPassword.Value);
 
@@ -86,7 +89,6 @@ namespace Resource.Control {
                 return;
             }
 
-
             if (!txtCKPassword.Value.Equals(txtCKConfirmPassword.Value)) {
                 ShowValidationMessage("ConfirmPasswordMisMatch");
                 return;
@@ -94,10 +96,11 @@ namespace Resource.Control {
 
             if (UserController.GetByUserName(txtUserName.Value) != null) {
                 ShowValidationMessage("UserNameAlreadyInUse");
+                LogHelper.Log(Logger.Application, LogLevel.Error, "SignUp - UserNameAlreadyInUse");
                 return;
             }
 
-            #region user reation
+            #region user creation
 
             var transaction = DataProviderManager.Provider.NewDataTransaction;
             var roleList = new List<RoleInfo>();
@@ -105,9 +108,12 @@ namespace Resource.Control {
                 txtCKPassword.Value,
                 txtUserName.Value, roleList, transaction);
             transaction.Commit();
+            LogHelper.Log(Logger.Application, LogLevel.Info, "SignUp - User created");
 
             if (newUserInfo != null)
                 FormsAuthentication.RedirectToLoginPage();
+
+            LogHelper.Log(Logger.Application, LogLevel.Info, "SignUp - Exit");
 
             #endregion
         }

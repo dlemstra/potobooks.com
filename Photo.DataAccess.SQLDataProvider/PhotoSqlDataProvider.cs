@@ -701,10 +701,8 @@ namespace Photo.DataAccess.SQLDataProvider {
             }
         }
 
-        public override IEnumerable<AlbumInfo> GetAllAlbums()
-        {
-            using (IDbConnection connection = NewDataConnection)
-            {
+        public override IEnumerable<AlbumInfo> GetAllAlbums() {
+            using (IDbConnection connection = NewDataConnection) {
                 return connection.Query<AlbumInfo>("[dbo].[GetAllAlbums]", null,
                     commandType: CommandType.StoredProcedure);
             }
@@ -732,9 +730,11 @@ namespace Photo.DataAccess.SQLDataProvider {
 
         public override long SaveAlbumImage(AlbumImageInfo image, IDbTransaction transaction) {
             var sqlParam = new DynamicParameters();
+
+            sqlParam.Add("@AlbumId", image.AlbumID);
             sqlParam.Add("@AlbumImagePath", image.AlbumImagePath);
-            sqlParam.Add("@AlbumImageName", image.AlbumImageName);
-            sqlParam.Add("@AlbumImageDescription", image.AlbumImageDescription);
+            sqlParam.Add("@ImageName", image.AlbumImageName);
+            sqlParam.Add("@ImageDescription", image.AlbumImageDescription);
             sqlParam.Add("@ImageTypeId", image.ImageTypeId);
             sqlParam.Add("@UploadedBy", image.UploadedBy);
             sqlParam.Add("@IsActive", image.IsActive);
